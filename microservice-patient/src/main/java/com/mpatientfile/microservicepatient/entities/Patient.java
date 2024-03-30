@@ -2,10 +2,7 @@ package com.mpatientfile.microservicepatient.entities;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.output.JsonStream;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -14,24 +11,40 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "first_name", columnDefinition = "first_name")
     private String firstName;
+    @Column(name = "last_name", columnDefinition = "last_name")
     private String lastName;
+    @Column(name = "birth_date", columnDefinition = "birth_date")
     private Date birthDate;
+    @Column(name = "email")
     private String email;
+    @Column(name = "phone")
     private String phone;
+
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "address")
     private String address;
+    @Column(name = "city")
     private String city;
+    @Column(name = "zip_code", columnDefinition = "zip_code")
     private String zipCode;
+    @Column(name = "country")
     private String country;
+    @Column(name = "state")
     private String state;
+    @Column(name = "last_update", columnDefinition = "last_update")
     private Date lastUpdate;
+    @Column(name = "created_date", columnDefinition = "created_date")
     private Date createdDate;
 
     public Patient() {
     }
 
     public Patient(Long id, String firstName, String lastName, String email, String phone, String address, String city,
-            String state, String zipCode, String country, Date birthDate, Date lastUpdate, Date createdDate) {
+            String state, String zipCode, String country, Date birthDate, Date lastUpdate, Date createdDate,
+            String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +55,7 @@ public class Patient {
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
+        this.gender = gender;
         this.birthDate = birthDate;
         this.lastUpdate = lastUpdate;
         this.createdDate = createdDate;
@@ -159,8 +173,11 @@ public class Patient {
         return JsonStream.serialize(patient);
     }
 
-    public boolean isPresent() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isPresent'");
+    public String getGender() {
+        return gender;
     }
+
+    public void setGender(String gender) {
+    }
+
 }

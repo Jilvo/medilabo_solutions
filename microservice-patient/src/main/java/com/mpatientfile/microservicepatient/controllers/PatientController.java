@@ -35,23 +35,23 @@ public class PatientController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable(value = "id") Long id,
-            @RequestBody Patient patientDetails) {
-        Optional<Patient> patient = patientRepository.findById(id);
-        if (patient.isPresent()) {
-            Patient updatedPatient = patient.get();
-            updatedPatient.setFirstName(patientDetails.getFirstName());
-            updatedPatient.setLastName(patientDetails.getLastName());
-            // Set other fields
-            patientRepository.save(updatedPatient);
-            return ResponseEntity.ok(updatedPatient);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Patient> updatePatient(@PathVariable(value = "id") Long id,
+//            @RequestBody Patient patientDetails) {
+//        Optional<Patient> patient = patientRepository.findById(id);
+//        if (patient.isPresent()) {
+//            Patient updatedPatient = patient.get();
+//            updatedPatient.setFirstName(patientDetails.getFirstName());
+//            updatedPatient.setLastName(patientDetails.getLastName());
+//            // Set other fields
+//            patientRepository.save(updatedPatient);
+//            return ResponseEntity.ok(updatedPatient);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePatient(@PathVariable(value = "id") Long id) {
         Optional<Patient> patient = patientRepository.findById(id);
