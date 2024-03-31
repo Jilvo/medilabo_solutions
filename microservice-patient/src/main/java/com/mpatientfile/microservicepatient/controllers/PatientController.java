@@ -44,7 +44,7 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable(value = "id") Long id,
+    public ResponseEntity<String> updatePatient(@PathVariable(value = "id") Long id,
             @RequestBody Patient patientDetails) {
         Optional<Patient> patient = patientRepository.findById(id);
         if (patient.isPresent()) {
@@ -57,9 +57,10 @@ public class PatientController {
             updatedPatient.setGender(patientDetails.getGender());
             // Set other fields
             patientService.savePatient(updatedPatient);
-            return ResponseEntity.ok(updatedPatient);
+            return ResponseEntity.ok(Patient.toDict(updatedPatient));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
+            // return ResponseEntity.notFound().build();
         }
     }
 
@@ -70,7 +71,7 @@ public class PatientController {
             patientRepository.delete(patient.get());
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
         }
     }
 }
