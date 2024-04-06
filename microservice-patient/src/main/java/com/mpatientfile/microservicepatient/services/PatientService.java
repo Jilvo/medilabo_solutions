@@ -7,6 +7,7 @@ import com.mpatientfile.microservicepatient.entities.Patient;
 import com.mpatientfile.microservicepatient.repositories.PatientRepository;
 
 @Service
+
 public class PatientService {
 
     @Autowired

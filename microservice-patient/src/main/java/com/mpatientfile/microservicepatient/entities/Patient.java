@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+//    @JsonIgnore
     private Long id;
 
     @NotNull
