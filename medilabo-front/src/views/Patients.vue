@@ -2,6 +2,12 @@
   <Header msg="Header" />
   <div class="mt-10 flex justify-center">
     <div class="w-10/12 relative overflow-x-auto shadow-md sm:rounded-lg">
+      <button
+        class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+        @click="newPatient()"
+      >
+        Créer un nouveau patient
+      </button>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -44,24 +50,32 @@
       </table>
     </div>
   </div>
-  <EditPatientModal :show="showModal" :patient="selectedPatient" @close="showModal = false" />
+  <EditPatientModal
+    :show="showEditModal"
+    :patient="selectedPatient"
+    @close="showEditModal = false"
+  />
+  <NewPatientModal :show="showNewModal" @close="showNewModal = false" />
 </template>
 
 <script>
 import Header from '../components/Header/Header.vue'
 import EditPatientModal from '../components/Modal/EditPatientModal.vue'
+import NewPatientModal from '../components/Modal/NewPatientModal.vue'
 import axios from 'axios'
 
 export default {
   components: {
     // eslint-disable-next-line vue/no-reserved-component-names
     Header,
-    EditPatientModal
+    EditPatientModal,
+    NewPatientModal
   },
   data() {
     return {
       patients: [],
-      showModal: false,
+      showEditModal: false,
+      showNewModal: false,
       selectedPatient: null
     }
   },
@@ -73,13 +87,16 @@ export default {
       try {
         const response = await axios.get('http://localhost:9000/api/patients')
         this.patients = response.data
-        console.log('Patients:', this.patients)
       } catch (error) {
         console.error("Une erreur s'est produite lors de la récupération des patients :", error)
       }
     },
+    async newPatient() {
+      this.selectedPatient = null
+      this.showNewModal = true
+      this.showEditModal = false
+    },
     async deletePatient(id) {
-      console.log('id:', id)
       try {
         await axios.delete(`http://localhost:9000/api/patients/${id}`)
         this.fetchPatients()
@@ -90,10 +107,9 @@ export default {
 
     async editPatient(id) {
       const patient = this.patients.find((p) => p.id === id)
-      console.log('id:', id)
-      console.log('patient:', patient)
       this.selectedPatient = patient
-      this.showModal = true
+      this.showEditModal = true
+      this.showNewModal = false
     }
   }
 }

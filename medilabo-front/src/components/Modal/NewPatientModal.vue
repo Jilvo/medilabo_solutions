@@ -7,7 +7,7 @@
       <div class="sm:flex flex-col">
         <div class="flex justify-between">
           <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2" id="modal-title">
-            Modifier le Patient
+            Créer un nouveau Patient
           </h3>
           <div class="relative">
             <button @click="close" class="absolute top-0 right-0 bg-white rounded-full p-1">
@@ -43,9 +43,9 @@
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   id="grid-first-name"
                   type="text"
+                  placeholder="John"
                   v-bind:class="{ 'border-red-500': errors.firstName }"
-                  :placeholder="patient.firstName"
-                  v-model="localPatient.firstName"
+                  v-model="patient.firstName"
                 />
                 <p class="text-red-500 text-xs italic">{{ errors.firstName }}</p>
               </div>
@@ -57,12 +57,12 @@
                   Nom de Famille
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-last-name"
-                  type="text"
                   v-bind:class="{ 'border-red-500': errors.lastName }"
-                  :placeholder="patient.lastName"
-                  v-model="localPatient.lastName"
+                  type="text"
+                  placeholder="Doe"
+                  v-model="patient.lastName"
                 />
                 <p class="text-red-500 text-xs italic">{{ errors.lastName }}</p>
               </div>
@@ -79,9 +79,9 @@
                   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-password"
                   type="text"
+                  placeholder="45 Rue des lilas"
                   v-bind:class="{ 'border-red-500': errors.address }"
-                  :placeholder="patient.address"
-                  v-model="localPatient.address"
+                  v-model="patient.address"
                 />
                 <p class="text-red-500 text-xs italic">{{ errors.address }}</p>
               </div>
@@ -95,12 +95,12 @@
                   Numéro de téléphone
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="text"
+                  placeholder="0123456789"
                   v-bind:class="{ 'border-red-500': errors.phone }"
-                  :placeholder="patient.phone"
-                  v-model="localPatient.phone"
+                  v-model="patient.phone"
                 />
                 <p class="text-red-500 text-xs italic">{{ errors.phone }}</p>
               </div>
@@ -115,7 +115,6 @@
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
-                    v-model="localPatient.gender"
                   >
                     <option>M</option>
                     <option>F</option>
@@ -143,23 +142,24 @@
                   Date de naissance
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-zip"
                   type="text"
+                  placeholder="1999-01-01"
                   v-bind:class="{ 'border-red-500': errors.birthDate }"
-                  :placeholder="patient.birthDate"
-                  v-model="localPatient.birthDate"
+                  v-model="patient.birthDate"
                 />
                 <p class="text-red-500 text-xs italic">{{ errors.birthDate }}</p>
               </div>
             </div>
           </form>
         </div>
+        <div v-if="error" class="error">{{ error }}</div>
         <button
-          class="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+          class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
           @click="validateInput(patient)"
         >
-          Mettre à jour le dossier du patient
+          Créer un nouveau patient
         </button>
       </div>
     </div>
@@ -171,7 +171,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      localPatient: {
+      patient: {
         firstName: '',
         lastName: '',
         address: '',
@@ -189,64 +189,49 @@ export default {
       }
     }
   },
-  props: ['show', 'patient'],
-  watch: {
-    patient: {
-      handler(newValue) {
-        this.localPatient = { ...newValue }
-      },
-      deep: true
-    }
-  },
+  props: ['show', ''],
   methods: {
     close() {
       this.$emit('close')
     },
     async validateInput() {
-      // console.log('Checking input datas')
-      // console.log('Patient:', this.patient)
+      console.log('Checking input datas')
+      console.log('Patient:', this.patient)
       const is_number = /^[0-9]*$/
       const is_only_letter = /^[a-zA-Z]*$/
 
       this.errors.firstName =
-        !this.localPatient.firstName || !is_only_letter.test(this.localPatient.firstName)
+        !this.patient.firstName || !is_only_letter.test(this.patient.firstName)
           ? 'Le prénom est invalide. Il doit contenir que des lettres.'
           : null
 
       this.errors.lastName =
-        !this.localPatient.lastName || !is_only_letter.test(this.localPatient.lastName)
+        !this.patient.lastName || !is_only_letter.test(this.patient.lastName)
           ? 'Le nom est invalide. Il doit contenir que des lettres.'
           : null
 
-      this.errors.address = !this.localPatient.address ? "L'adresse est invalide." : null
+      this.errors.address = !this.patient.address ? "L'adresse est invalide." : null
 
       this.errors.phone =
-        !this.localPatient.phone || !is_number.test(this.localPatient.phone)
+        !this.patient.phone || !is_number.test(this.patient.phone)
           ? 'Le numéro de téléphone est invalide. Il doit contenir que des chiffres.'
           : null
 
-      this.errors.gender = !this.localPatient.gender ? 'Le genre est invalide.' : null
+      this.errors.gender = !this.patient.gender ? 'Le genre est invalide.' : null
 
-      this.errors.birthDate = !this.localPatient.birthDate
-        ? 'La date de naissance est invalide.'
-        : null
-      console.log('LOCAL', this.localPatient)
+      this.errors.birthDate = !this.patient.birthDate ? 'La date de naissance est invalide.' : null
+
       if (!Object.values(this.errors).every((x) => x === null)) {
         console.log(this.errors)
       } else {
-        console.log(this.localPatient)
-        this.updatePatient()
+        this.createPatient()
         this.$emit('close')
       }
     },
-    async updatePatient() {
-      console.log('Creating patient:', this.localPatient)
-      console.log('Creating patient id:', this.patient.id)
+    async createPatient() {
+      console.log('Creating patient:', this.patient)
       try {
-        const response = await axios.put(
-          'http://localhost:9000/api/patients/' + this.patient.id,
-          this.localPatient
-        )
+        const response = await axios.post('http://localhost:9000/api/patients', this.patient)
         this.patients = response.data
         console.log('Patients:', this.patients)
       } catch (error) {

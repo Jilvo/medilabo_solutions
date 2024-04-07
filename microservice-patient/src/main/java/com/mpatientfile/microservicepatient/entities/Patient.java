@@ -2,6 +2,7 @@ package com.mpatientfile.microservicepatient.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.output.JsonStream;
 import jakarta.persistence.*;
@@ -9,15 +10,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity()
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @JsonIgnore
+    // @JsonIgnore
     private Long id;
 
     @NotNull
@@ -60,6 +58,7 @@ public class Patient {
         return id;
     }
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) // Ignorer lors de la sérialisation
     public void setId(Long id) {
         this.id = id;
     }
