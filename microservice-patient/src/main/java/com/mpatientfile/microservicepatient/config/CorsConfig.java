@@ -9,9 +9,13 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:5173") // Remplacez cette URL par l'URL de votre application Vue.js
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+        registry.addMapping("/api/patients/**")
+                .allowedOrigins("http://localhost:5173", "http://localhost:8080")
+                .allowedMethods("GET", "PUT", "DELETE")
+                .allowedHeaders("*");
+        registry.addMapping("/api/patients")
+                .allowedOrigins("http://localhost:5173", "http://localhost:8080")
+                .allowedMethods("GET", "POST")
                 .allowedHeaders("*");
     }
 }

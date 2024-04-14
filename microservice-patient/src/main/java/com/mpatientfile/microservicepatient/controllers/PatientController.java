@@ -46,22 +46,14 @@ public class PatientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updatePatient(@PathVariable(value = "id") Long id,
-            @RequestBody Patient patientDetails) {
+            @RequestBody Patient patientDetailsData) {
         Optional<Patient> patient = patientRepository.findById(id);
         if (patient.isPresent()) {
-            Patient updatedPatient = patient.get();
-            updatedPatient.setFirstName(patientDetails.getFirstName());
-            updatedPatient.setLastName(patientDetails.getLastName());
-            updatedPatient.setPhone(patientDetails.getPhone());
-            updatedPatient.setAddress(patientDetails.getAddress());
-            updatedPatient.setBirthDate(patientDetails.getBirthDate());
-            updatedPatient.setGender(patientDetails.getGender());
-            // Set other fields
-            patientService.savePatient(updatedPatient);
-            return ResponseEntity.ok(Patient.toDict(updatedPatient));
+            Patient toUpdatePatient = patient.get();
+            Patient updatedPatient = patientService.updateExistingPatient(toUpdatePatient, patientDetailsData);
+            return ResponseEntity.status(HttpStatus.OK).body("Updated successfully");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Patient not found");
-            // return ResponseEntity.notFound().build();
         }
     }
 

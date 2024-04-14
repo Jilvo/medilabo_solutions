@@ -28,7 +28,7 @@ public class Patient {
 
     @Column(name = "birth_date", columnDefinition = "birth_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    private String birthDate;
 
     @Column(name = "phone")
     private String phone;
@@ -42,7 +42,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Long id, String firstName, String lastName, String phone, String address, LocalDate birthDate,
+    public Patient(Long id, String firstName, String lastName, String phone, String address, String birthDate,
             String gender) {
         this.id = id;
         this.firstName = firstName;
@@ -95,11 +95,11 @@ public class Patient {
         this.address = address;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
