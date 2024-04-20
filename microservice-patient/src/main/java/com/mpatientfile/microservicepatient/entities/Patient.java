@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.output.JsonStream;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -18,8 +16,6 @@ public class Patient {
     // @JsonIgnore
     private Long id;
 
-    @NotNull
-    @Size(min = 2, max = 30)
     @Column(name = "first_name", columnDefinition = "first_name")
     private String firstName;
 
