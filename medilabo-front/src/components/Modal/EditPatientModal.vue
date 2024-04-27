@@ -157,7 +157,7 @@
         </div>
         <button
           class="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-          @click="validateInput(patient)"
+          @click="validateInput()"
         >
           Mettre à jour le dossier du patient
         </button>

@@ -48,7 +48,7 @@
             <td>
               <button
                 class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
-                @click="showNotesOfPatient(patient.id)"
+                @click="showNotesOfPatient(patient)"
               >
                 Notes
               </button>
@@ -64,9 +64,10 @@
     @close="showEditModal = false"
   />
   <NewPatientModal :show="showNewModal" @close="showNewModal = false" />
-  <ShowNotesOfPatientModal
+  <ShowNotesModal
     :show="showNotesOfPatientModal"
     :patientId="selectedPatient"
+    :patientName="selectedPatientName"
     @close="showNotesOfPatientModal = false"
   />
 </template>
@@ -75,7 +76,7 @@
 import Header from '../components/Header/Header.vue'
 import EditPatientModal from '../components/Modal/EditPatientModal.vue'
 import NewPatientModal from '../components/Modal/NewPatientModal.vue'
-import ShowNotesOfPatientModal from '../components/Modal/ShowNotesOfPatientModal.vue'
+import ShowNotesModal from '../components/Modal/ShowNotesModal.vue'
 import axios from 'axios'
 
 export default {
@@ -84,7 +85,7 @@ export default {
     Header,
     EditPatientModal,
     NewPatientModal,
-    ShowNotesOfPatientModal
+    ShowNotesModal
   },
   data() {
     return {
@@ -93,6 +94,7 @@ export default {
       showNewModal: false,
       showNotesOfPatientModal: false,
       selectedPatient: null,
+      selectedPatientName: null,
       showCreateNoteModal: false
     }
   },
@@ -130,13 +132,12 @@ export default {
       this.showNewModal = false
       this.showNotesOfPatientModal = false
     },
-    async showNotesOfPatient(id) {
-      console.log('id: ' + id)
-      this.selectedPatient = id
+    async showNotesOfPatient(patient) {
+      this.selectedPatient = patient.id
+      this.selectedPatientName = patient.firstName
       this.showEditModal = false
       this.showNewModal = false
       this.showNotesOfPatientModal = true
-      console.log(this.showNotesOfPatientModal)
     }
   }
 }

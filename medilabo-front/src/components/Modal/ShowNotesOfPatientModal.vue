@@ -71,11 +71,8 @@ export default {
     async getAllNotesOfPatient(id) {
       try {
         const response = await axios.get(`http://localhost:9001/notes/patId/${id}`)
-        console.log(response)
-        console.log(response.data)
         this.notes = response.data
         this.patientName = response.data[0].patient.patient
-        console.log('notes', this.notes)
       } catch (error) {
         console.error(error)
       }
@@ -86,7 +83,6 @@ export default {
     async deleteNote(id) {
       try {
         const response = await axios.delete(`http://localhost:9001/notes/${id}`)
-        console.log(response)
         this.notes = this.notes.filter((note) => note.id !== id)
       } catch (error) {
         console.error(error)
