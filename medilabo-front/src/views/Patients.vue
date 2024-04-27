@@ -45,6 +45,14 @@
                 Modifier
               </button>
             </td>
+            <td>
+              <button
+                class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                @click="showNotesOfPatient(patient.id)"
+              >
+                Notes
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -56,12 +64,18 @@
     @close="showEditModal = false"
   />
   <NewPatientModal :show="showNewModal" @close="showNewModal = false" />
+  <ShowNotesOfPatientModal
+    :show="showNotesOfPatientModal"
+    :patientId="selectedPatient"
+    @close="showNotesOfPatientModal = false"
+  />
 </template>
 
 <script>
 import Header from '../components/Header/Header.vue'
 import EditPatientModal from '../components/Modal/EditPatientModal.vue'
 import NewPatientModal from '../components/Modal/NewPatientModal.vue'
+import ShowNotesOfPatientModal from '../components/Modal/ShowNotesOfPatientModal.vue'
 import axios from 'axios'
 
 export default {
@@ -69,14 +83,17 @@ export default {
     // eslint-disable-next-line vue/no-reserved-component-names
     Header,
     EditPatientModal,
-    NewPatientModal
+    NewPatientModal,
+    ShowNotesOfPatientModal
   },
   data() {
     return {
       patients: [],
       showEditModal: false,
       showNewModal: false,
-      selectedPatient: null
+      showNotesOfPatientModal: false,
+      selectedPatient: null,
+      showCreateNoteModal: false
     }
   },
   mounted() {
@@ -95,6 +112,7 @@ export default {
       this.selectedPatient = null
       this.showNewModal = true
       this.showEditModal = false
+      this.showNotesOfPatientModal = false
     },
     async deletePatient(id) {
       try {
@@ -110,6 +128,15 @@ export default {
       this.selectedPatient = patient
       this.showEditModal = true
       this.showNewModal = false
+      this.showNotesOfPatientModal = false
+    },
+    async showNotesOfPatient(id) {
+      console.log('id: ' + id)
+      this.selectedPatient = id
+      this.showEditModal = false
+      this.showNewModal = false
+      this.showNotesOfPatientModal = true
+      console.log(this.showNotesOfPatientModal)
     }
   }
 }

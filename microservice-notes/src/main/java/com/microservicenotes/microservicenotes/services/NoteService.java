@@ -35,7 +35,9 @@ public class NoteService {
         existingNote.setNote(noteDetailsData.getNote());
         return noteRepository.save(existingNote);
     }
-
+    public List<Note> getNotesByPatientId(String patId) {
+        return noteRepository.findByPatId(patId);
+    }
     public void delete(String id) {
         noteRepository.deleteById(id);
     }

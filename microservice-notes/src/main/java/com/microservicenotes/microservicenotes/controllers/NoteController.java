@@ -27,6 +27,10 @@ public class NoteController {
     public Note create(@RequestBody Note note) {
         return noteService.create(note);
     }
+    @GetMapping("/patId/{patId}")
+    public List<Note> getNotesByPatientId(@PathVariable String patId) {
+        return noteService.getNotesByPatientId(patId);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Note> get(@PathVariable String id) {
