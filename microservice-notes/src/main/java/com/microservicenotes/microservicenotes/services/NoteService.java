@@ -1,8 +1,6 @@
-package com.mpatientnotes.microservicenotes.services;
-
-
-import com.mpatientnotes.microservicenotes.entities.Note;
-import com.mpatientnotes.microservicenotes.repositories.NoteRepository;
+package com.microservicenotes.microservicenotes.services;
+import com.microservicenotes.microservicenotes.entities.Note;
+import com.microservicenotes.microservicenotes.repositories.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,13 @@ public class NoteService {
     public Note update(String id, Note note) {
         note.setId(id);
         return noteRepository.save(note);
+    }
+
+    public Note updateExistingNote(Note existingNote, Note noteDetailsData) {
+        existingNote.setPatId(noteDetailsData.getPatId());
+        existingNote.setPatient(noteDetailsData.getPatient());
+        existingNote.setNote(noteDetailsData.getNote());
+        return noteRepository.save(existingNote);
     }
 
     public void delete(String id) {
