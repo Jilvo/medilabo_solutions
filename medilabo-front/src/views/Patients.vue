@@ -19,6 +19,7 @@
             <th class="px-6 py-3">Téléphone</th>
             <th class="px-6 py-3">Genre</th>
             <th class="px-6 py-3">Adresse</th>
+            <th class="px-6 py-3">Rapport</th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@
             <td class="px-6 py-4">{{ patient.phone }}</td>
             <td class="px-6 py-4">{{ patient.gender }}</td>
             <td class="px-6 py-4">{{ patient.address }}</td>
+            <td class="px-6 py-4">{{ patient.report }}</td>
             <td>
               <button
                 class="text-white py-2 px-4 rounded bg-gradient-to-r from-red-400 to-red-600 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
@@ -108,6 +110,21 @@ export default {
         this.patients = response.data
       } catch (error) {
         console.error("Une erreur s'est produite lors de la récupération des patients :", error)
+      }
+      for (const patient of this.patients) {
+        let report = await this.fetchReports(patient)
+        console.log(report)
+        patient.report = report
+      }
+    },
+    async fetchReports(patient) {
+      try {
+        const response = await axios.get('http://localhost:9002/report/' + patient.id)
+        console.log(response.data.risk)
+        let report = response.data.risk
+        return report
+      } catch (error) {
+        console.error("Une erreur s'est produite lors de la récupération des rapports :", error)
       }
     },
     async newPatient() {
