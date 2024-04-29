@@ -9,3 +9,10 @@ Project with SprintBoot for the P9 of the path DA Java from Openclassrooms
 ## TODO 
 -   Tests
 -   Créer l'image Docker Java
+-   
+
+## Ports
+- 9000 : Patient
+- 9001 : Notes
+- 9002 : Report
+- 5173 : Front Dev
