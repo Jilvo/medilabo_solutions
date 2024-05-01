@@ -1,34 +1,39 @@
 version: '3'
 services:
-  # vuejs:
-  #   image: medilabo-front:latest
-  #   ports:
-  #     - '8080:8080'
-
-  # patient-service:
-  #   image: medilabo-patient
-  #   ports:
-  #     - '9000:9000'
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/microservicepatient?serverTimezone=UTC
-  #     - SPRING_DATASOURCE_USERNAME=root
-  #     - SPRING_DATASOURCE_PASSWORD=rootroot
-  #   depends_on:
-  #     - mysql
-
-  # note-service:
-  #   image: medilabo-notes:latest
-  #   ports:
-  #     - '9001:9001'
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:mongodb://mongodb:27017/patients-notes
-  #   depends_on:
-  #     - mongodb
+  vuejs:
+    image: medilabo-front:latest
+    ports:
+      - '8080:8080'
+  note-service:
+    image: medilabo-notes:latest
+    ports:
+      - '9001:9001'
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/patients-notes
+    depends_on:
+      - mongodb
     
-  # report-service:
-  #   image: medilabo-rapport:latest
-  #   ports:
-  #     - '9002:9002'
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+  report-service:
+    image: medilabo-rapport:latest
+    ports:
+      - '9002:9002'
+  patient-service:
+    image: medilabo-patient
+    ports:
+      - '9000:9000'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/microservicepatient?serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+    depends_on:
+      - mysql
 
   mysql:
     image: mysql:latest
@@ -39,10 +44,6 @@ services:
       - MYSQL_USER=myuser
       - MYSQL_PASSWORD=mypassword
       - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+          - ./data.sql:/docker-entrypoint-initdb.d/data.sql
 
-  # mongodb:
-  #   image: mongo
-  #   ports:
-  #     - '27017:27017'
-  #   volumes:
-  #     - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro

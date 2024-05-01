@@ -16,3 +16,6 @@ Project with SprintBoot for the P9 of the path DA Java from Openclassrooms
 - 9001 : Notes
 - 9002 : Report
 - 5173 : Front Dev
+
+USE microservicepatient;
+SHOW TABLES;
