@@ -9,13 +9,14 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
 @Service
 public class PatientService {
     public Patient getPatient(String id) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:9000/api/patients/" + id))
+                    .uri(new URI("http://patient-service:9000/api/patients/" + id))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -25,5 +26,5 @@ public class PatientService {
             return null;
         }
 
-}
+    }
 }

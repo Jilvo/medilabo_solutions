@@ -6,7 +6,7 @@ spring:
     gateway:
       routes:
         - id: vuejs-frontend
-          uri: http://localhost:8080/
+          uri: http://vuejs:8080/
           predicates:
             - Path=/ui/**
           filters:
@@ -16,7 +16,7 @@ spring:
           predicates:
             - Path=/patients/**
         - id: note # OK
-          uri: http://localhost:9001/
+          uri: http://note-service:9001/
           predicates:
             - Path=/notes/**
         - id: report

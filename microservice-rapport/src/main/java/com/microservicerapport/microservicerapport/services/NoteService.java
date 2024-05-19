@@ -11,14 +11,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-
 @Service
 public class NoteService {
     public List<Note> getNoteOfPatient(String id) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:9001/notes/patId/" + id))
+                    .uri(new URI("http://note-service:9001/notes/patId/" + id))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

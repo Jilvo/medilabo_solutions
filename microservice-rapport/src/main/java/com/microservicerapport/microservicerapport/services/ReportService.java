@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class ReportService {
     @Autowired
@@ -38,26 +37,27 @@ public class ReportService {
         String gender = patient.getGender();
         int numberOfTriggerWords = countTriggerWords(notes);
 
-        if (numberOfNotes == 0) {
+        if (numberOfTriggerWords == 0) {
             return "None";
-        } else if (age >= 30 && numberOfNotes >= 2 && numberOfNotes <= 5) {
+        } else if (age > 30 && numberOfNotes >= 2 && numberOfNotes <= 5) {
             return "Borderline";
-        } else if (age < 30 && gender == "M" && numberOfTriggerWords <5) {
+        } else if (age < 30 && gender == "M" && numberOfTriggerWords < 5) {
             return "In Danger";
-        } else if (age < 30 && gender == "F" && numberOfTriggerWords <7) {
+        } else if (age < 30 && gender == "F" && numberOfTriggerWords < 7) {
             return "In Danger";
-        } else if (age >= 30 && numberOfTriggerWords == 6  ||numberOfTriggerWords ==7) {
+        } else if (age >= 30 && numberOfTriggerWords == 6 || numberOfTriggerWords == 7) {
             return "In Danger";
 
-        }else if (age < 30 && gender == "M" && numberOfTriggerWords >=5) {
+        } else if (age < 30 && gender == "M" && numberOfTriggerWords >= 5) {
             return "Early onset";
-        } else if (age < 30 && gender == "F" && numberOfTriggerWords >=7) {
+        } else if (age < 30 && gender == "F" && numberOfTriggerWords >= 7) {
             return "Early onset";
-        } else if (age >= 30 && numberOfTriggerWords >=8) {
+        } else if (age >= 30 && numberOfTriggerWords >= 8) {
             return "Early onset";
         }
-         return "Early onset";
+        return "Early onset";
     }
+
     public int countTriggerWords(List<Note> notes) {
         List<String> triggerWords = getListOfSymptoms();
         int count = 0;
@@ -70,6 +70,7 @@ public class ReportService {
         }
         return count;
     }
+
     public List<String> getListOfSymptoms() {
         ArrayList<String> result = new ArrayList<String>();
         try {

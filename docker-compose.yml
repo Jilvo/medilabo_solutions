@@ -51,7 +51,7 @@ services:
       - MYSQL_PASSWORD=mypassword
       - MYSQL_ROOT_PASSWORD=rootpassword
     volumes:
-          - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+          - ./data_patients.sql:/docker-entrypoint-initdb.d/data_patients.sql
     restart: on-failure
     
   # gateway:

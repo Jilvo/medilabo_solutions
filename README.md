@@ -7,15 +7,16 @@ Project with SprintBoot for the P9 of the path DA Java from Openclassrooms
 
 
 ## TODO 
--   Tests
--   Créer l'image Docker Java
--   
+-  Tests
+-  Minifying Front
+-  Fix Gateway with URL
 
 ## Ports
 - 9000 : Patient
 - 9001 : Notes
 - 9002 : Report
-- 5173 : Front Dev
+- 5173 /8080: Front Dev
+- 8000 : Gateway
 
 USE microservicepatient;
 SHOW TABLES;
