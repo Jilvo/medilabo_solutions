@@ -14,6 +14,10 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true
+    },
+    cors: true, // Active les requêtes CORS
+    proxy: {
+      // Configuration pour d'autres proxies si nécessaire
     }
   }
 })

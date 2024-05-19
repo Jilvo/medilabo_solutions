@@ -18,3 +18,5 @@ INSERT INTO Patient (first_name, last_name, birth_date, gender, address, phone) 
 ('Gwen', 'Stacy', '2002-01-23', 'F', '32 Bleecker Street, New York', '555-666-7777'), -- Spider Gwen
 ('Elektra', 'Natchios', '1984-07-12', 'F', '21 Jump Street, New York', '666-777-8888'), -- Elektra Natchios
 ('Matt', 'Murdock', '1980-12-15', 'M', '182 Clinton Street, New York', '444-555-6666'); -- Daredevil
+
+RENAME TABLE `Patient` TO `patient`;
