@@ -1,9 +1,10 @@
+# Start the microservices
 docker-up: 
   docker-compose up --build
 
+# Stop the microservices
 docker-down: 
   docker-compose down --remove-orphans
-
 
 # Package the patient microservice
 package-patient:
@@ -32,28 +33,32 @@ package-all:
   just package-report
   just package-gateway
   just package-front
-
+# Build the patient microservice
 docker-build-medilabo-patient: 
   cd microservice-patient && docker build -t medilabo-patient .
-
+# Build the notes microservice
 docker-build-medilabo-notes: 
   cd microservice-notes && docker build -t medilabo-notes .
-
+# Build the report microservice
 docker-build-medilabo-report: 
   cd microservice-rapport && docker build -t medilabo-rapport .
-
+# Build the gateway microservice
 docker-build-medilabo-gateway: 
   cd microservice-gateway && docker build -t medilabo-gateway .
-
+# Build the front microservice
 docker-build-medilabo-front: 
   cd medilabo-front && docker build -t medilabo-front .
-
+# Build all the microservices
 docker-all: 
   just docker-build-medilabo-patient
   just docker-build-medilabo-notes
   just docker-build-medilabo-report
   just docker-build-medilabo-gateway
   just docker-build-medilabo-front
+# Package and build all the microservices
+package-docker-all: 
+  just package-all
+  just docker-all
 
 check_health_patient:
   @echo "Checking health... microservice-patient"
@@ -76,6 +81,7 @@ check_health_front:
   @curl -s -o /dev/null -w "Status code : %{http_code}" http://localhost:8080
   @echo " "
 
+# Check the health of all the microservices
 check_health:
     just check_health_gateway
     just check_health_report

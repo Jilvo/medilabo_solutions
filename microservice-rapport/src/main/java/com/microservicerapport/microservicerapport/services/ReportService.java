@@ -6,11 +6,13 @@ import com.microservicerapport.microservicerapport.models.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ReportService {
@@ -36,35 +38,37 @@ public class ReportService {
         int numberOfNotes = notes.size();
         String gender = patient.getGender();
         int numberOfTriggerWords = countTriggerWords(notes);
-
         if (numberOfTriggerWords == 0) {
             return "None";
-        } else if (age > 30 && numberOfNotes >= 2 && numberOfNotes <= 5) {
+        } else if (age > 30 && numberOfTriggerWords >= 2 && numberOfTriggerWords <= 5) {
             return "Borderline";
-        } else if (age < 30 && gender == "M" && numberOfTriggerWords < 5) {
+        } else if (age < 30 && Objects.equals(gender, "M") && numberOfTriggerWords < 5) {
             return "In Danger";
-        } else if (age < 30 && gender == "F" && numberOfTriggerWords < 7) {
+        } else if (age < 30 && Objects.equals(gender, "F") && numberOfTriggerWords < 7) {
             return "In Danger";
         } else if (age >= 30 && numberOfTriggerWords == 6 || numberOfTriggerWords == 7) {
             return "In Danger";
 
-        } else if (age < 30 && gender == "M" && numberOfTriggerWords >= 5) {
+        } else if (age < 30 && Objects.equals(gender, "M") && numberOfTriggerWords >= 5) {
             return "Early onset";
-        } else if (age < 30 && gender == "F" && numberOfTriggerWords >= 7) {
+        } else if (age < 30 && Objects.equals(gender, "F") && numberOfTriggerWords >= 7) {
             return "Early onset";
         } else if (age >= 30 && numberOfTriggerWords >= 8) {
             return "Early onset";
         }
-        return "Early onset";
+        return "None";
     }
 
     public int countTriggerWords(List<Note> notes) {
         List<String> triggerWords = getListOfSymptoms();
         int count = 0;
         for (Note note : notes) {
-            for (String word : triggerWords) {
-                if (note.getNote().contains(word)) {
-                    count++;
+            String[] wordsInNote = note.getNote().toLowerCase().split("\\s+");
+            for (String wordInNote : wordsInNote) {
+                for (String triggerWord : triggerWords) {
+                    if (wordInNote.contains(triggerWord.toLowerCase())) {
+                        count++;
+                    }
                 }
             }
         }
