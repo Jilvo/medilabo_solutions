@@ -27,11 +27,12 @@ public class PatientService {
             System.out.println("problem occurred with saving patient " + e);
         }
     }
+
     public Patient updateExistingPatient(Patient patient, Patient patientDetailsData) {
         /**
          * Updates an existing patient with new details.
          *
-         * @param patient The existing patient to update.
+         * @param patient            The existing patient to update.
          * @param patientDetailsData The new details to update the patient with.
          * @return The updated patient, or null if an error occurred.
          */

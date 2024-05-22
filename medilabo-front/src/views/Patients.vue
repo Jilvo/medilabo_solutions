@@ -3,7 +3,7 @@
   <div class="mt-10 flex justify-center">
     <div class="w-10/12 relative overflow-x-auto shadow-md sm:rounded-lg">
       <button
-        class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+        class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 mb-2 ocus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
         @click="newPatient()"
       >
         Créer un nouveau patient
@@ -20,6 +20,9 @@
             <th class="px-6 py-3">Genre</th>
             <th class="px-6 py-3">Adresse</th>
             <th class="px-6 py-3">Rapport</th>
+            <th>Supprimer</th>
+            <th>Modifier</th>
+            <th>Créer Note</th>
           </tr>
         </thead>
         <tbody>
@@ -106,7 +109,7 @@ export default {
   methods: {
     async fetchPatients() {
       try {
-        const response = await axios.get('http://localhost:9000/api/patients')
+        const response = await axios.get('http://localhost:9000/patients')
         this.patients = response.data
       } catch (error) {
         console.error("Une erreur s'est produite lors de la récupération des patients :", error)
@@ -135,7 +138,7 @@ export default {
     },
     async deletePatient(id) {
       try {
-        await axios.delete(`http://localhost:9000/api/patients/${id}`)
+        await axios.delete(`http://localhost:9000/patients/${id}`)
         this.fetchPatients()
       } catch (error) {
         console.error("Une erreur s'est produite lors de la suppression du patient :", error)

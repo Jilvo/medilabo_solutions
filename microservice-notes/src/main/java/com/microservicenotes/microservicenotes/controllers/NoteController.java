@@ -27,11 +27,25 @@ public class NoteController {
     public Note create(@RequestBody Note note) {
         return noteService.create(note);
     }
+
+    /**
+     * Retrieves a list of notes associated with a specific patient ID.
+     *
+     * @param patId the patient ID
+     * @return a list of notes associated with the patient ID
+     */
     @GetMapping("/patId/{patId}")
     public List<Note> getNotesByPatientId(@PathVariable String patId) {
         return noteService.getNotesByPatientId(patId);
     }
 
+    /**
+     * Retrieves a note by its ID.
+     *
+     * @param id the ID of the note to retrieve
+     * @return the ResponseEntity containing the retrieved note if it exists, or a
+     *         not found response if it doesn't
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Note> get(@PathVariable String id) {
         Optional<Note> patient = noteRepository.findById(id);
@@ -47,6 +61,16 @@ public class NoteController {
         return noteService.getAll();
     }
 
+    /**
+     * Updates a note with the given ID.
+     *
+     * @param id              The ID of the note to update.
+     * @param noteDetailsData The updated note details.
+     * @return A ResponseEntity with a success message if the note was updated
+     *         successfully,
+     *         or a ResponseEntity with a not found message if the note was not
+     *         found.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable String id, @RequestBody Note noteDetailsData) {
         Optional<Note> patient = noteRepository.findById(id);
@@ -59,8 +83,14 @@ public class NoteController {
         }
     }
 
+    /**
+     * Deletes a note with the specified ID.
+     *
+     * @param id the ID of the note to delete
+     * @return a ResponseEntity with a String indicating the result of the deletion
+     */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>  delete(@PathVariable String id) {
+    public ResponseEntity<String> delete(@PathVariable String id) {
         Optional<Note> patient = noteRepository.findById(id);
         if (patient.isPresent()) {
             noteRepository.delete(patient.get());

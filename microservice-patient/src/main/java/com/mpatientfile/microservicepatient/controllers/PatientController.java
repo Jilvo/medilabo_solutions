@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/patients")
+@RequestMapping("/patients")
 public class PatientController {
 
     @Autowired
@@ -22,6 +22,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    /**
+     * Creates a new patient.
+     *
+     * @param patient the patient object to be created
+     * @return the ResponseEntity with the created patient and HTTP status code
+     */
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
         System.out.println(patient);
@@ -29,11 +35,23 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(patient);
     }
 
+    /**
+     * Retrieves a list of all patients.
+     *
+     * @return A list of Patient objects representing all patients.
+     */
     @GetMapping
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
 
+    /**
+     * Retrieves a patient by their ID.
+     *
+     * @param id the ID of the patient to retrieve
+     * @return the ResponseEntity containing the patient if found, or a 404 Not
+     *         Found response if not found
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable(value = "id") Long id) {
         Optional<Patient> patient = patientRepository.findById(id);
@@ -44,6 +62,14 @@ public class PatientController {
         }
     }
 
+    /**
+     * Updates a patient with the given ID.
+     *
+     * @param id                 the ID of the patient to update
+     * @param patientDetailsData the updated patient details
+     * @return a ResponseEntity with the status and message indicating the result of
+     *         the update operation
+     */
     @PutMapping("/{id}")
     public ResponseEntity<String> updatePatient(@PathVariable(value = "id") Long id,
             @RequestBody Patient patientDetailsData) {
@@ -57,6 +83,13 @@ public class PatientController {
         }
     }
 
+    /**
+     * Deletes a patient with the specified ID.
+     *
+     * @param id the ID of the patient to delete
+     * @return a ResponseEntity with a success status if the patient is deleted, or
+     *         a not found status if the patient is not found
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePatient(@PathVariable(value = "id") Long id) {
         Optional<Patient> patient = patientRepository.findById(id);

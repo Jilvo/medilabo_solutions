@@ -1,10 +1,10 @@
 Microservices Project with Spring Boot and Vue.js for the P9 of the path DA Java from Openclassrooms
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Jilvo/medilabo_solutions/blob/master/LICENSE)
-[![License: MIT](https://img.shields.io/badge/spring-3.2.4-6DB33F)](https://docs.spring.io/spring-framework/reference/index.html)
-[![License: MIT](https://img.shields.io/badge/Java-17-red)](https://docs.oracle.com/en/java/)
-[![License: MIT](https://img.shields.io/badge/Vue.js-3.4.21-51bc7b)](https://vuejs.org/guide/introduction)
-[![License: MIT](https://img.shields.io/badge/Coverage-0%-red)](https://github.com/Jilvo/medilabo_solutions/blob/master/LICENSE)
+[![Spring](https://img.shields.io/badge/spring-3.2.4-6DB33F)](https://docs.spring.io/spring-framework/reference/index.html)
+[![Java](https://img.shields.io/badge/Java-17-red)](https://docs.oracle.com/en/java/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.4.21-51bc7b)](https://vuejs.org/guide/introduction)
+[![Coverage](https://img.shields.io/badge/Coverage-0%-red)](https://github.com/Jilvo/medilabo_solutions/blob/master/LICENSE)
 
 ## Table of Contents
 
@@ -24,6 +24,7 @@ Microservices Project with Spring Boot and Vue.js for the P9 of the path DA Java
   - [Note Service](#note-service)
   - [Report Service](#report-service)
   - [Health Check Endpoints](#health-check-endpoints)
+- [Green Code](#green-code)
 - [Contributing](#contributing)
 - [License](#license)
 - [TODO](#todo)
@@ -92,10 +93,10 @@ just check_health
 ## Usage
 ## API Endpoints
 ### Patient Service
-    GET /api/patients/{{id}}: Retrieve patient by ID
-    POST /api/patients: Create a new patient
-    PUT /api/patients/{{id}}: Update patient by ID
-    DELETE /api/patients/{{id}}: Delete patient by ID
+    GET /patients/{{id}}: Retrieve patient by ID
+    POST /patients: Create a new patient
+    PUT /patients/{{id}}: Update patient by ID
+    DELETE /patients/{{id}}: Delete patient by ID
 ### Note Service
     GET /notes: Retrieve all notes
     POST /notes: Create a new note
@@ -106,7 +107,11 @@ just check_health
     GET /report/{{id}}: Get report of a patient by ID
 ### Health Check Endpoints
     GET /actuator/health: Check health of Microservice Patient (port 9000) and Microservice Note (port 9001) and Microservice Report (port 9002)
-
+## Green Code
+  - Eviter la duplication de code
+  - Utiliser des images Docker légères
+  - Réduire les requêtes de base de données
+  - Eviter la duplication des données
 ## Contributing
 If you wish to contribute to this project, please fork the repository and create a pull request with your changes. Make sure to follow the coding standards and include relevant tests.
 
@@ -115,10 +120,18 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 
 ## TODO 
 -  Tests
--  Minifying Front
 -  Fix Gateway with URL
--  JavaDoc
--  Readme
+-  Passer par la Gateway pour les curl front
+-  Ajouter mentions GreenCode dans le Readme.md (Image Slim Docker)
+- Le readme.md possède une ou plusieurs suggestions pour la mise en oeuvre du Green Code dans le projet, par exemple : 
+  minimiser les fonctionnalités peu utilisées, 
+  optimiser les données stockées dans la BDD ;
+- Vérifier les rapports
+-  L’étudiant est capable de justifier sa mise en place des microservices
+-  L’étudiant est capable d’expliquer les principes et les enjeux du Green Code ; 
+-  L’étudiant est capable de justifier la normalisation.
+-  L’étudiant est capable d’expliquer l’utilisation de la base de données NoSQL.
+-  
 
 - 9000 : Patient
 - 9001 : Notes

@@ -1,8 +1,6 @@
 package com.microservicerapport.microservicerapport.services;
 
 import com.microservicerapport.microservicerapport.models.Note;
-import com.microservicerapport.microservicerapport.models.Report;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -13,12 +11,19 @@ import java.util.List;
 
 @Service
 public class NoteService {
+    /**
+     * Retrieves the notes of a patient based on the provided ID.
+     *
+     * @param id The ID of the patient.
+     * @return A list of Note objects representing the notes of the patient.
+     *         Returns null if an error occurs during the retrieval process.
+     */
     public List<Note> getNoteOfPatient(String id) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:9001/notes/patId/" + id))
-//                    .uri(new URI("http://note-service:9001/notes/patId/" + id))
+                    // .uri(new URI("http://localhost:9001/notes/patId/" + id))
+                    .uri(new URI("http://note-service:9001/notes/patId/" + id))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

@@ -54,13 +54,13 @@ services:
           - ./data_patients.sql:/docker-entrypoint-initdb.d/data_patients.sql
     restart: on-failure
     
-  # gateway:
-  #   image: medilabo-gateway:latest
-  #   ports:
-  #     - '8000:8000'
-  #   depends_on:
-  #     - vuejs
-  #     - note-service
-  #     - report-service
-  #     - patient-service
+  gateway:
+    image: medilabo-gateway:latest
+    ports:
+      - '8000:8000'
+    depends_on:
+      - vuejs
+      - note-service
+      - report-service
+      - patient-service
 

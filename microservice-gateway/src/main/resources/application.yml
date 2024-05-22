@@ -11,14 +11,17 @@ spring:
             - Path=/ui/**
           filters:
             - StripPrefix=1 # Supprime le préfixe /front
+
         - id: patient
           uri: http://patient-service:9000
           predicates:
             - Path=/patients/**
+
         - id: note # OK
           uri: http://note-service:9001/
           predicates:
             - Path=/notes/**
+
         - id: report
           uri: http://report-service:9002
           predicates:

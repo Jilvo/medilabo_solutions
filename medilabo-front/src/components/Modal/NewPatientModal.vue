@@ -156,7 +156,7 @@
         </div>
         <div v-if="error" class="error">{{ error }}</div>
         <button
-          class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+          class="bg-gradient-to-r from-green-400 to-green-600 text-white py-2 px-4 rounded hover:bg-green-600 mb-2 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
           @click="validateInput(patient)"
         >
           Créer un nouveau patient
@@ -231,7 +231,7 @@ export default {
     async createPatient() {
       console.log('Creating patient:', this.patient)
       try {
-        const response = await axios.post('http://localhost:9000/api/patients', this.patient)
+        const response = await axios.post('http://localhost:9000/patients', this.patient)
         this.patients = response.data
         console.log('Patients:', this.patients)
       } catch (error) {

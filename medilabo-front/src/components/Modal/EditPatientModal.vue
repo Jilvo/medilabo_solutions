@@ -244,7 +244,7 @@ export default {
       console.log('Creating patient id:', this.patient.id)
       try {
         const response = await axios.put(
-          'http://localhost:9000/api/patients/' + this.patient.id,
+          'http://localhost:9000/patients/' + this.patient.id,
           this.localPatient
         )
         this.patients = response.data

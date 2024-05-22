@@ -6,7 +6,6 @@ import com.microservicerapport.microservicerapport.models.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,6 +20,12 @@ public class ReportService {
     @Autowired
     private NoteService noteService;
 
+    /**
+     * Retrieves the report of a patient based on their ID.
+     *
+     * @param id The ID of the patient.
+     * @return The report of the patient.
+     */
     public Report getReportOfPatient(String id) {
         Patient patient = patientService.getPatient(id);
         if (patient != null) {
@@ -33,6 +38,14 @@ public class ReportService {
         }
     }
 
+    /**
+     * Determines the level of risk based on the given list of notes and patient
+     * information.
+     *
+     * @param notes   the list of notes
+     * @param patient the patient information
+     * @return the level of risk as a string
+     */
     public String determineLevelOfRisk(List<Note> notes, Patient patient) {
         int age = patient.getAge();
         int numberOfNotes = notes.size();
@@ -75,6 +88,11 @@ public class ReportService {
         return count;
     }
 
+    /**
+     * Retrieves a list of symptoms from a text file.
+     * 
+     * @return a list of symptoms
+     */
     public List<String> getListOfSymptoms() {
         ArrayList<String> result = new ArrayList<String>();
         try {

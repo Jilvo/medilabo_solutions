@@ -12,12 +12,15 @@ import java.net.http.HttpResponse;
 
 @Service
 public class PatientService {
+    /**
+     * Represents a patient.
+     */
     public Patient getPatient(String id) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:9000/api/patients/" + id))
-//                    .uri(new URI("http://patient-service:9000/api/patients/" + id))
+                    // .uri(new URI("http://localhost:9000/patients/" + id))
+                    .uri(new URI("http://patient-service:9000/patients/" + id))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
