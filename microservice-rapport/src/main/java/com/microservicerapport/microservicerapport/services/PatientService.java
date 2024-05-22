@@ -19,7 +19,6 @@ public class PatientService {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    // .uri(new URI("http://localhost:9000/patients/" + id))
                     .uri(new URI("http://patient-service:9000/patients/" + id))
                     .build();
 

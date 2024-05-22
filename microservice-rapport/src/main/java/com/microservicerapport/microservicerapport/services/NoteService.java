@@ -22,7 +22,6 @@ public class NoteService {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    // .uri(new URI("http://localhost:9001/notes/patId/" + id))
                     .uri(new URI("http://note-service:9001/notes/patId/" + id))
                     .build();
 
