@@ -1,7 +1,7 @@
-Hémoglobine A1C
+Hémoglobine
+A1C
 Microalbumine
 Taille
-
 Fumeur
 Fumeuse
 Anormal
@@ -11,5 +11,3 @@ Vertige
 Rechute
 Réaction
 Anticorps
-Fume
-Fumer

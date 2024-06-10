@@ -121,7 +121,6 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 ## TODO 
 -  Tests
 -  Fix Gateway with URL
--  Passer par la Gateway pour les curl front
 -  Ajouter mentions GreenCode dans le Readme.md (Image Slim Docker)
 - Le readme.md possède une ou plusieurs suggestions pour la mise en oeuvre du Green Code dans le projet, par exemple : 
   minimiser les fonctionnalités peu utilisées, 
@@ -131,7 +130,18 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 -  L’étudiant est capable d’expliquer les principes et les enjeux du Green Code ; 
 -  L’étudiant est capable de justifier la normalisation.
 -  L’étudiant est capable d’expliquer l’utilisation de la base de données NoSQL.
--  
+  
+  Présentation des livrables (15 minutes)
+Démonstration fonctionnelle de l’application finale et mise en avant des points clés du code.
+Explication sur la façon dont vous pourrez appliquer le Green Code.
+Discussion (10 minutes)
+L’évaluateur jouera le rôle de votre Responsable Produit. Il vous challengera sur votre méthodologie et vos livrables : 
+Le découpage en microservices est-elle la meilleure architecture pour ce projet?
+En quoi la base NoSQL est parfaitement adaptée pour ce besoin?
+Comment peut-on limiter le recours à du code énergivore (complexité algorithmique, appel inutile...)?
+Identifier des pistes pour du refactoring green.
+Débrief (5 minutes)
+À la fin de la soutenance, l'évaluateur arrêtera de jouer le rôle de Taylor pour vous permettre de débriefer ensemble.
 
 - 9000 : Patient
 - 9001 : Notes
