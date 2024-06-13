@@ -143,6 +143,8 @@ Identifier des pistes pour du refactoring green.
 Débrief (5 minutes)
 À la fin de la soutenance, l'évaluateur arrêtera de jouer le rôle de Taylor pour vous permettre de débriefer ensemble.
 
+Check si le front à accès à l'API
+
 - 9000 : Patient
 - 9001 : Notes
 - 9002 : Report
