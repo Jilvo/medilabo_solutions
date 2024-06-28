@@ -1,5 +1,4 @@
 package com.microservicerapport.microservicerapport.models;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jsoniter.JsonIterator;
 import com.jsoniter.output.JsonStream;
 

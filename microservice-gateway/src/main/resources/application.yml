@@ -19,8 +19,8 @@ spring:
             - Path=/patients/**
 
         - id: note
-          uri: http://note-service:9001/
-          # uri: http://localhost:9001/
+          #          uri: http://note-service:9001/
+          uri: http://localhost:9001/
           predicates:
             - Path=/notes/**
 
